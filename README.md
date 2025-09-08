@@ -1,4 +1,4 @@
-# Welcome Avengers! 🦸‍♀️
+# Welcome Avengers!🦸
 
 ## Meet the team
 
