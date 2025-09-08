@@ -1,4 +1,4 @@
-# Welcome Avengers!
+# Welcome Avengers! 🦸‍♀️
 
 ## Meet the team
 
@@ -8,4 +8,4 @@
 ### Sidekick 3: Tobias
 ### Sidekick 4: Jade
 
-Fighting against code mal-practise!
+Fighting against code mal-practise! 💪
