@@ -1,9 +1,11 @@
 # Welcome Avengers!
 
-### The Boss: Sam Farrens
-### Superhero 1: Jen Feron
-### Superhero 2: Robias Russel 
-### Superhero 3: Gavin Leroy
-### Superhero 4: Jade Piat
+## Meet the team
 
-Fighting against code mal-practise!
+### The boss: Sam Farrens
+### Sidekick 1: Gavin
+### Sidekick 2: Jen
+### Sidekick 3: Tobias
+### Sidekick 4: Jade
+
+Fighting againt code mal-practise!
