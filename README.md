@@ -8,4 +8,4 @@
 ### Sidekick 3: Tobias
 ### Sidekick 4: Jade
 
-Fighting againt code mal-practise!
+Fighting against code mal-practise!
