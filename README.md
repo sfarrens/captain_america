@@ -5,7 +5,7 @@
 ### The boss: Sam Farrens
 ### Sidekick 1: Gavin Leroy
 ### Sidekick 2: Jen Feron
-### Sidekick 3: Tobias Russel
+### Sidekick 3: Tobias Russell
 ### Sidekick 4: Jade Piat
 
 Fighting against code mal-practise! 💪
