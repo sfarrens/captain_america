@@ -3,10 +3,10 @@
 ## Meet the team
 
 ### The boss: Sam Farrens
-### Sidekick 1: Gavin
-### Sidekick 2: Jen
-### Sidekick 3: Tobias
-### Sidekick 4: Jade
+### Sidekick 1: Gavin Leroy
+### Sidekick 2: Jen Feron
+### Sidekick 3: Tobias Russel
+### Sidekick 4: Jade Piat
 
 Fighting against code mal-practise! 💪
 
