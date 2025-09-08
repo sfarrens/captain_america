@@ -12,10 +12,10 @@ Fighting against code mal-practise! 💪
 
 ## Project: Large-scale structure with radio and cluster abundance
 
-### Motivation: Extracting precise cosmological information from next-generation surveys requires inference techniques that can robustly handle complex systematics and intractable likelihoods.
+### Motivation: 
+Extracting precise cosmological information from next-generation surveys requires inference techniques that can robustly handle complex systematics and intractable likelihoods.
 
 ### Scope idea:
-
 This project would aim to develop and compare state-of-the-art inference methods by applying them to distinct, simulated cosmological datasets. The primary goal is to quantify the performance of Simulation-Based Inference (SBI) against traditional Hierarchical Bayesian Modelling (using MCMC) for cosmological parameter estimation.
 To achieve this, the project could be structured around one or two parallel analysis pipelines feeding into a unified inference framework:
 
