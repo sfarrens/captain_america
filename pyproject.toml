@@ -1,0 +1,21 @@
+[project]
+name = "glass_cannon"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ "name" = "Samuel Farrens"}, { "name" = "Jen Feron"}, { "name" = "Tobias Russel"}, { "name" = "Gavin Leroy"}, { "name" = "Jade Piat"}]
+maintainers = [{ "name" = "Samuel Farrens"}, { "name" = "Jen Feron"}, { "name" = "Tobias Russel"}, { "name" = "Gavin Leroy"}, { "name" = "Jade Piat"}]
+
+description = 'This a cosmology package to infer cosmological parameters from simulated galaxy fields.'
+dependencies = [
+	"glass",
+	"camb",
+	"cosmology.compat.camb>=0.2.0",
+	"glass.ext.camb",
+	"jax>=0.4.32",
+	"jupyter",
+	"matplotlib",
+]
+version = "0.0.1"
+
+[project.optional-dependencies]
+test = ["pytest"]
