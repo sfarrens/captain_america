@@ -1,5 +1,6 @@
 # use the CAMB cosmology that generated the matter power spectra
 import camb
+import numpy as np
 from cosmology.compat.camb import Cosmology
 
 # almost all GLASS functionality is available from the `glass` namespace
@@ -36,7 +37,7 @@ def test_angular_power_spectrum():
     # compute the angular matter power spectra of the shells with CAMB
     test_cls = glass.ext.camb.matter_cls(pars, lmax, shells)
 
-    assert angular_power_spectrum(pars,lmax,zb) == test_cls
+    assert np.allclose(angular_power_spectrum(pars, lmax, zb), test_cls, rtol=1e-6, atol=1e-8)
 
 
 
