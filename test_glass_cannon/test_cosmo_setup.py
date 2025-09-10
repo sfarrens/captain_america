@@ -1,9 +1,7 @@
-import sys
-sys.path.append("/home/ppxjf3/repo/captain_america/glass_cannon/")
-from cosmo_setup import set_cosmo
-from cosmo_setup import make_bkg
-from cosmo_setup import make_cosmo
-from cosmo_setup import do_all_in_one_function
+from glass_cannon.cosmo_setup import set_cosmo
+from glass_cannon.cosmo_setup import make_bkg
+from glass_cannon.cosmo_setup import make_cosmo
+from glass_cannon.cosmo_setup import do_all_in_one_function
 
 """
 testing function to set up the cosmology for Glass simulation    
