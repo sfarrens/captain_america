@@ -12,4 +12,4 @@ def angular_power_spectrum(pars,lmax,zb):
     shells = glass.linear_windows(zb)
     
     # compute the angular matter power spectra of the shells with CAMB
-    return glass.ext.camb.matter_cls(pars, lmax, shells)
+    return glass.ext.camb.matter_cls(pars, lmax, shells), shells

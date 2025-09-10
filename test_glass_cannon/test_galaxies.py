@@ -14,4 +14,4 @@ def test_galaxy_creation():
     dndz = np.full_like(z, 0.01)
     ngal = glass.partition(z, dndz, shells) # replace this 
 
-    assert all(ngal  == add_galaxies(z,dndz)), 'AAAAAAH NOOOOO! WRONG ! (but not sure why tho)'
+    assert all(ngal  == add_galaxies(z,dndz, shells, zb)), 'AAAAAAH NOOOOO! WRONG ! (but not sure why tho)'

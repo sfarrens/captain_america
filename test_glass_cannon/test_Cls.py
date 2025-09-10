@@ -34,7 +34,7 @@ def test_angular_power_spectrum():
     shells = glass.linear_windows(zb)
     
     # compute the angular matter power spectra of the shells with CAMB
-    test_cls = glass.ext.camb.matter_cls(pars, lmax, shells)
+    test_cls, test_shells = glass.ext.camb.matter_cls(pars, lmax, shells)
 
     assert angular_power_spectrum(pars,lmax,zb) == test_cls
 
