@@ -28,3 +28,4 @@ def run_generate(fields, gls, nside, rng):
     matter = glass.generate(fields, gls, nside, ncorr=3, rng=rng)
 
     return matter
+
