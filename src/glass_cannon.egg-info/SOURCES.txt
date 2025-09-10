@@ -1,0 +1,8 @@
+README.md
+pyproject.toml
+src/glass_cannon/__init__.py
+src/glass_cannon.egg-info/PKG-INFO
+src/glass_cannon.egg-info/SOURCES.txt
+src/glass_cannon.egg-info/dependency_links.txt
+src/glass_cannon.egg-info/requires.txt
+src/glass_cannon.egg-info/top_level.txt
