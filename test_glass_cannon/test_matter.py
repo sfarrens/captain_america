@@ -1,4 +1,5 @@
 import glass
+import glass.ext.camb
 import numpy as np
 import camb
 
@@ -40,9 +41,11 @@ def test_run_discretized_cls():
 
     prev_cls = glass.ext.camb.matter_cls(pars, lmax, shells)
 
-    cls = run_discretized_cls(cls, nside, lmax)
+    expected_cls = glass.discretized_cls(prev_cls, nside=nside, lmax=lmax, ncorr=3)
 
-    assert 0 #prev_cls == cls
+    cls = run_discretized_cls(prev_cls, nside, lmax)
+
+    assert all(np.allclose(a, b, rtol=1e-6, atol=1e-8) for a, b in zip(expected_cls, cls))
 
 
 
