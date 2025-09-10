@@ -17,5 +17,14 @@ def run_discretized_cls(prev_cls, nside, lmax):
 
     return cls
 
+def run_solve_gauss_spectra(fields, cls):
 
+    gls = glass.solve_gaussian_spectra(fields, cls)
 
+    return gls
+
+def run_generate(fields, gls, nside, rng):
+
+    matter = glass.generate(fields, gls, nside, ncorr=3, rng=rng)
+
+    return matter
