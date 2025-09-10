@@ -13,7 +13,7 @@ from galaxies import add_galaxies
 # creating a numpy random number generator for sampling
 rng = np.random.default_rng(seed=42)
 
-def put_it_all_together(zb, matter, ngal, rng, shells):
+def make_3D_galaxy_cube(zb, matter, ngal, rng, shells):
     # make a cube for galaxy number in redshift
     zcub = np.linspace(-zb[-1], zb[-1], 21)
     cube = np.zeros((zcub.size - 1,) * 3)
@@ -81,7 +81,7 @@ dndz = np.full_like(z, 0.01)
 
 ngal = add_galaxies(z,dndz, shells, zb)
 
-cube, zcub = put_it_all_together(zb, matter_, ngal, rng, shells)
+cube, zcub = make_3D_galaxy_cube(zb, matter_, ngal, rng, shells)
        
 """ PLOT THE FIGURE  """ 
 # positions of grid cells of the cube
