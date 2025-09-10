@@ -1,7 +1,7 @@
 [project]
 name = "glass_cannon"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 authors = [{ "name" = "Samuel Farrens"}, { "name" = "Jen Feron"}, { "name" = "Tobias Russel"}, { "name" = "Gavin Leroy"}, { "name" = "Jade Piat"}]
 maintainers = [{ "name" = "Samuel Farrens"}, { "name" = "Jen Feron"}, { "name" = "Tobias Russel"}, { "name" = "Gavin Leroy"}, { "name" = "Jade Piat"}]
 
@@ -14,7 +14,12 @@ dependencies = [
 	"jax>=0.4.32",
 	"jupyter",
 	"matplotlib",
+	"emcee>=3.1.6",
+	"getdist>=1.7.2",
+	"nautilus-sampler>=1.0.5",
+	"sbi>=0.25.0",
 ]
+
 version = "0.0.1"
 
 [project.optional-dependencies]
