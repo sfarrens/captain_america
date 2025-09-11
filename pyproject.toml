@@ -7,9 +7,9 @@ maintainers = [{ "name" = "Samuel Farrens"}, { "name" = "Jen Feron"}, { "name" =
 
 description = 'This a cosmology package to infer cosmological parameters from simulated galaxy fields.'
 dependencies = [
-	"glass",
 	"camb",
 	"cosmology.compat.camb>=0.2.0",
+	"glass",
 	"glass.ext.camb",
 	"jax>=0.4.32",
 	"jupyter",
@@ -27,4 +27,4 @@ docs = ["numpydoc", "sphinx", "sphinx-book-theme"]
 test = ["pytest"]
 
 # Install for development
-dev = ["glass_cannon[docs,test"]
+dev = ["glass_cannon[docs,test]"]
