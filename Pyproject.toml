@@ -1,6 +1,0 @@
-[project]
-name ="Captain JAX-merica"
-version = "2020.0.0"
-dynamic = ["version"]
-dependencies = []
-
