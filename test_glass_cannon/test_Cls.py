@@ -37,7 +37,7 @@ def test_angular_power_spectrum():
     # compute the angular matter power spectra of the shells with CAMB
     test_cls, test_shells = glass.ext.camb.matter_cls(pars, lmax, shells)
 
-    assert np.allclose(angular_power_spectrum(pars, lmax, zb), test_cls, rtol=1e-6, atol=1e-8)
+    assert np.allclose(angular_power_spectrum(pars, lmax, zb), test_cls, test_shells, rtol=1e-6, atol=1e-8)
 
 
 
