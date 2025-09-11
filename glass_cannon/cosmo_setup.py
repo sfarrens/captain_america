@@ -33,7 +33,7 @@ def make_bkg(cosmo):
 def make_cosmo(bkg):
     return Cosmology(bkg)
 
-def do_all_in_one_function(h, Oc, Ob):
+def make_cosmology_class(h, Oc, Ob):
     pars = camb.set_params(
     H0=100 * h,
     omch2=Oc * h**2,
@@ -42,4 +42,4 @@ def do_all_in_one_function(h, Oc, Ob):
     
     results = camb.get_background(pars)
     
-    return Cosmology(results)
+    return Cosmology(results), pars
