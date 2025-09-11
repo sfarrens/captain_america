@@ -4,17 +4,24 @@ import glass
 # create 10 redshift shells between z=0 and z=1
 
 def add_galaxies(z,dndz, shells):
-    """Partition a the galaxy density function by a sequence of windows.
+    """Partition the galaxy density function by a sequence of windows.
 
     Parameters
     ----------
-        z (ndarray[tuple[int, ...], dtype[float64]]): List of redshifts bins. If dndz is multi-dimensional, its last axis must agree with z.
-        dndz (ndarray[tuple[int, ...], dtype[float64]]): The function to be partitioned. 
-        shells  (Sequence[RadialWindow]): Ordered sequence of window functions to be combined. The redshift shells between z=0 and z=1.
+    z : numpy.ndarray
+        Array of redshift bins. If ``dndz`` is multi-dimensional, its last axis 
+        must agree with ``z``.
+    dndz : numpy.ndarray
+        The galaxy density function to be partitioned.
+    shells : Sequence[RadialWindow]
+        Ordered sequence of window functions. Defines the redshift shells between 
+        ``z = 0`` and ``z = 1``.
 
     Returns
     -------
-        ngal (ndarray[tuple[int, ...], dtype[float64]]): _description_
+    numpy.ndarray
+        The partitioned galaxy number density, with shape matching ``dndz`` except 
+        along the axis corresponding to ``z``.
     """
     # constant galaxy density distribution
     ngal = glass.partition(z, dndz, shells)
