@@ -1,6 +1,7 @@
 from glass_cannon.cosmo_setup import set_cosmo
 from glass_cannon.cosmo_setup import make_bkg
 from glass_cannon.cosmo_setup import make_cosmo
+from glass_cannon.cosmo_setup import make_cosmology_class
 
 """
 testing function to set up the cosmology for Glass simulation    
