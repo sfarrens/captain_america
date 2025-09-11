@@ -3,12 +3,11 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 import numpy as np
 import sys
-sys.path.append("/home/ppxjf3/repo/captain_america/glass_cannon/")
 
-from cosmo_setup import make_cosmology_class
-from Cls import angular_power_spectrum
-import matter 
-from galaxies import add_galaxies
+from glass_cannon.cosmo_setup import make_cosmology_class
+from glass_cannon.Cls import angular_power_spectrum
+import glass_cannon.matter as ma 
+from glass_cannon.galaxies import add_galaxies
 
 
 def make_3D_galaxy_cube(zb, matter, ngal, rng, shells):
@@ -40,7 +39,7 @@ def make_3D_galaxy_cube(zb, matter, ngal, rng, shells):
             
     return cube, zcub
 
-def simulator(h = 0.7, OmegaB = 0.25, OmegaC = 0.05, length = 128, seed = np.random.default_rng(seed=42), PLOT=False):
+def simulator(h, OmegaB, OmegaC, length = 128, seed = np.random.default_rng(seed=42), PLOT=False):
         """
         --------------------------
         Define cosmological parameters:
@@ -60,23 +59,23 @@ def simulator(h = 0.7, OmegaB = 0.25, OmegaC = 0.05, length = 128, seed = np.ran
 
         cls, shells = angular_power_spectrum(pars,length,zb)
 
-        fields = matter.run_ln_fields(shells)
+        fields = ma.run_ln_fields(shells)
 
-        cls = matter.run_discretized_cls(cls, length, length)
+        cls = ma.run_discretized_cls(cls, length, length)
         
         # compute Gaussian spectra for lognormal fields from discretised spectra
-        gls = matter.run_solve_gauss_spectra(fields, cls)
+        gls = ma.run_solve_gauss_spectra(fields, cls)
 
         # generator for lognormal matter fields
-        matter_ = matter.run_generate(fields, gls, length, seed)
+        matter = ma.run_generate(fields, gls, length, seed)
 
         # constant galaxy density distribution
         z = np.linspace(0.0, 1.0, 100)
         dndz = np.full_like(z, 0.01)
         
-        ngal = add_galaxies(z,dndz, shells, zb)
+        ngal = add_galaxies(z,dndz, shells)
 
-        cube, zcub = make_3D_galaxy_cube(zb, matter_, ngal, seed, shells)
+        cube, zcub = make_3D_galaxy_cube(zb, matter, ngal, seed, shells)
         
         if PLOT==True:
             """ PLOT THE FIGURE  """ 
