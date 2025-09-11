@@ -2,7 +2,20 @@ from glass_cannon.galaxies import add_galaxies
 import glass
 import numpy as np
 
+""" Test the galaxy creation function """
+
+
 def test_galaxy_creation():
+    """
+    Test the galaxy creation function : add_galaxies(z,dndz, shells).
+    Parameters
+    ----------
+    No input parameters.
+    Returns 
+    ----------
+    No return parameters.
+    
+    """
     #something simple to test
     zb = [0. ,     0.04720758, 0.09549701, 0.14497038 ,0.19573705 ,0.24791426,
     0.30162785, 0.35701293, 0.41421482, 0.47338997, 0.53470702, 0.59834801,
