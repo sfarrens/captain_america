@@ -1,3 +1,11 @@
+"""High-level pipeline to simulate galaxy overdensity shells with GLASS.
+
+This module wires together GLASS and CAMB utilities defined elsewhere in the
+package to produce lognormal matter fields and biased galaxy overdensity
+fields across redshift shells. Optionally, pseudo-3D visualisation code is
+provided (commented-out) to render a volumetric view.
+"""
+
 import glass
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
@@ -12,7 +20,17 @@ from glass_cannon.galaxies import add_galaxies
 from glass_cannon.HI_tracer import b_HI, T_HI_bar, convert_DM_to_HI
 
 def galaxy_bias(z):
-     """
+     """Linear galaxy bias model.
+
+     Parameters
+     ----------
+     z : float or ndarray
+         Redshift value(s).
+
+     Returns
+     -------
+     float or ndarray
+         Galaxy bias at ``z`` defined as ``0.7 * (1 + z)``.
      """
      return 0.7 * (1 + z)
 
@@ -120,13 +138,4 @@ def simulator(h, OmegaB, OmegaC, length = 128, PLOT=True, n_shells=3):
 
 galaxy_overdensities, hi_temperature_fields, all_cls = simulator(h=0.7, OmegaC=0.25, OmegaB=0.05, length = 128, PLOT=False, n_shells=3)
 
-
-
-
-
-
-
-
-
-        
 
