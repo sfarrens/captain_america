@@ -14,6 +14,8 @@ Fighting against code mal-practise! 💪
 
 ## Project: Large-scale structure with radio and cluster abundance
 
+An add-on package from GLASS (https://github.com/glass-dev/glass) to simulate the galaxy and HI fields. These fields are simulated using bias factors on the dark matter field, which take three cosmological parameters as input: h, OmegaC, and OmegaB. The package then allows for the angular power spectra (Cl) on the auto and cross correlation from both fields. Simulation-based inference using neural likelihood estimation can then be done on these Cls to infer the three cosmological parameters named earlier.
+
 ### Motivation: 
 Extracting precise cosmological information from next-generation surveys requires inference techniques that can robustly handle complex systematics and intractable likelihoods.
 
