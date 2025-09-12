@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>glass_cannon package &#8212; glass_cannon  documentation</title>
+    <title>glass_cannon.compression module &#8212; glass_cannon  documentation</title>
   
   
   
@@ -40,11 +40,11 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'glass_cannon';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'glass_cannon.compression';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="glass_cannon.Cls module" href="glass_cannon.Cls.html" />
-    <link rel="prev" title="glass_cannon" href="modules.html" />
+    <link rel="next" title="glass_cannon.cosmo_setup module" href="glass_cannon.cosmo_setup.html" />
+    <link rel="prev" title="glass_cannon.HI_tracer module" href="glass_cannon.HI_tracer.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -151,10 +151,10 @@
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">glass_cannon</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">glass_cannon package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="glass_cannon.html">glass_cannon package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="glass_cannon.Cls.html">glass_cannon.Cls module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glass_cannon.HI_tracer.html">glass_cannon.HI_tracer module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="glass_cannon.compression.html">glass_cannon.compression module</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">glass_cannon.compression module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glass_cannon.cosmo_setup.html">glass_cannon.cosmo_setup module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glass_cannon.galaxies.html">glass_cannon.galaxies module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="glass_cannon.glass_pipeline.html">glass_cannon.glass_pipeline module</a></li>
@@ -218,7 +218,7 @@
       
       
       
-      <li><a href="_sources/glass_cannon.rst" target="_blank"
+      <li><a href="_sources/glass_cannon.compression.rst" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -302,7 +302,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>glass_cannon package</h1>
+    <h1>glass_cannon.compression module</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -312,7 +312,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glass_cannon.compression.do_CCA"><code class="docutils literal notranslate"><span class="pre">do_CCA()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -324,57 +324,23 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-glass_cannon">
-<span id="glass-cannon-package"></span><h1>glass_cannon package<a class="headerlink" href="#module-glass_cannon" title="Link to this heading">#</a></h1>
-<p>GLASS-based cosmology utilities and pipelines.</p>
-<p>Subpackages and modules provide:</p>
-<ul class="simple">
-<li><p>Cosmology setup helpers for CAMB and GLASS compatibility (<cite>cosmo_setup</cite>).</p></li>
-<li><p>Angular power spectrum computation via CAMB (<cite>Cls</cite>).</p></li>
-<li><p>Matter field generation helpers (<cite>matter</cite>).</p></li>
-<li><p>High-level simulation pipeline (<cite>glass_pipeline</cite>).</p></li>
-<li><p>Galaxy distribution utilities (<cite>galaxies</cite>).</p></li>
-<li><p>HI 21 cm tracer utilities (<cite>HI_tracer</cite>).</p></li>
+  <section id="module-glass_cannon.compression">
+<span id="glass-cannon-compression-module"></span><h1>glass_cannon.compression module<a class="headerlink" href="#module-glass_cannon.compression" title="Link to this heading">#</a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="glass_cannon.compression.do_CCA">
+<span class="sig-prename descclassname"><span class="pre">glass_cannon.compression.</span></span><span class="sig-name descname"><span class="pre">do_CCA</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sim_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_to_compress</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/glass_cannon/compression.html#do_CCA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#glass_cannon.compression.do_CCA" title="Link to this definition">#</a></dt>
+<dd><p>function to compress the data using CCA</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sim_samples</strong> (<em>_type_</em>) – np.random.multivariate_normal(means, prior_cov, size=10000)</p></li>
+<li><p><strong>data_to_compress</strong> (<em>numpy array</em>) – data to do CCA on</p></li>
+<li><p><strong>n_params</strong> (<em>int</em><em>, </em><em>optional</em>) – number of parameters which are varied in simulation. Defaults to 3.</p></li>
 </ul>
-<section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.Cls.html">glass_cannon.Cls module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.Cls.html#glass_cannon.Cls.angular_power_spectrum"><code class="docutils literal notranslate"><span class="pre">angular_power_spectrum()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.HI_tracer.html">glass_cannon.HI_tracer module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.HI_tracer.html#glass_cannon.HI_tracer.T_HI_bar"><code class="docutils literal notranslate"><span class="pre">T_HI_bar()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.HI_tracer.html#glass_cannon.HI_tracer.b_HI"><code class="docutils literal notranslate"><span class="pre">b_HI()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.HI_tracer.html#glass_cannon.HI_tracer.convert_DM_to_HI"><code class="docutils literal notranslate"><span class="pre">convert_DM_to_HI()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.compression.html">glass_cannon.compression module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.compression.html#glass_cannon.compression.do_CCA"><code class="docutils literal notranslate"><span class="pre">do_CCA()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.cosmo_setup.html">glass_cannon.cosmo_setup module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.galaxies.html">glass_cannon.galaxies module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.galaxies.html#glass_cannon.galaxies.add_galaxies"><code class="docutils literal notranslate"><span class="pre">add_galaxies()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.glass_pipeline.html">glass_cannon.glass_pipeline module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.matter.html">glass_cannon.matter module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.matter.html#glass_cannon.matter.run_discretized_cls"><code class="docutils literal notranslate"><span class="pre">run_discretized_cls()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.matter.html#glass_cannon.matter.run_generate"><code class="docutils literal notranslate"><span class="pre">run_generate()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.matter.html#glass_cannon.matter.run_ln_fields"><code class="docutils literal notranslate"><span class="pre">run_ln_fields()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.matter.html#glass_cannon.matter.run_solve_gauss_spectra"><code class="docutils literal notranslate"><span class="pre">run_solve_gauss_spectra()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="glass_cannon.noisy.html">glass_cannon.noisy module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.noisy.html#glass_cannon.noisy.add_noise"><code class="docutils literal notranslate"><span class="pre">add_noise()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="glass_cannon.noisy.html#glass_cannon.noisy.init_cov"><code class="docutils literal notranslate"><span class="pre">init_cov()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</div>
-</section>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -389,20 +355,20 @@ document.write(`
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="modules.html"
+       href="glass_cannon.HI_tracer.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">glass_cannon</p>
+        <p class="prev-next-title">glass_cannon.HI_tracer module</p>
       </div>
     </a>
     <a class="right-next"
-       href="glass_cannon.Cls.html"
+       href="glass_cannon.cosmo_setup.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">glass_cannon.Cls module</p>
+        <p class="prev-next-title">glass_cannon.cosmo_setup module</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -422,7 +388,7 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glass_cannon.compression.do_CCA"><code class="docutils literal notranslate"><span class="pre">do_CCA()</span></code></a></li>
 </ul>
   </nav></div>
 

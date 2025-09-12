@@ -14,7 +14,9 @@ Submodules
 
    glass_cannon.Cls
    glass_cannon.HI_tracer
+   glass_cannon.compression
    glass_cannon.cosmo_setup
    glass_cannon.galaxies
    glass_cannon.glass_pipeline
    glass_cannon.matter
+   glass_cannon.noisy

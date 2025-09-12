@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>glass_cannon.Cls &#8212; glass_cannon  documentation</title>
+    <title>glass_cannon.noisy &#8212; glass_cannon  documentation</title>
   
   
   
@@ -39,7 +39,7 @@
     <script src="../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/glass_cannon/Cls';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/glass_cannon/noisy';</script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -265,51 +265,57 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <h1>Source code for glass_cannon.Cls</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Computation of angular matter power spectra with CAMB via GLASS.</span>
+  <h1>Source code for glass_cannon.noisy</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
-<span class="sd">This module exposes a helper to compute the angular power spectra for a set</span>
-<span class="sd">of linear redshift shells using the CAMB-backed GLASS extension.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="init_cov">
+<a class="viewcode-back" href="../../glass_cannon.noisy.html#glass_cannon.noisy.init_cov">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">init_cov</span><span class="p">(</span><span class="n">ndim</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialise random non-diagonal covariance matrix.</span>
 
-<span class="c1"># use the CAMB cosmology that generated the matter power spectra</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">camb</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">cosmology.compat.camb</span><span class="w"> </span><span class="kn">import</span> <span class="n">Cosmology</span>
+<span class="sd">    Args:</span>
 
-<span class="c1"># almost all GLASS functionality is available from the `glass` namespace</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">glass</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">glass.ext.camb</span>
+<span class="sd">        ndim: Dimension of Gaussian.</span>
 
+<span class="sd">    Returns:</span>
 
-<div class="viewcode-block" id="angular_power_spectrum">
-<a class="viewcode-back" href="../../glass_cannon.Cls.html#glass_cannon.Cls.angular_power_spectrum">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">angular_power_spectrum</span><span class="p">(</span><span class="n">pars</span><span class="p">,</span><span class="n">lmax</span><span class="p">,</span><span class="n">zb</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute angular matter power spectra for linear redshift shells.</span>
+<span class="sd">        cov: Covariance matrix of shape (ndim,ndim).</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    pars : camb.model.CAMBparams</span>
-<span class="sd">        CAMB parameter object describing the background cosmology.</span>
-<span class="sd">    lmax : int</span>
-<span class="sd">        Maximum angular multipole to compute.</span>
-<span class="sd">    zb : ndarray</span>
-<span class="sd">        Grid in comoving distance or redshift boundaries passed to</span>
-<span class="sd">        ``glass.linear_windows`` to build shells.</span>
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    tuple</span>
-<span class="sd">        A pair ``(cls, shells)`` where ``cls`` are the CAMB-computed angular</span>
-<span class="sd">        matter spectra in the GLASS format and ``shells`` are the associated</span>
-<span class="sd">        linear radial window functions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    
-    <span class="c1"># linear radial window functions</span>
-    <span class="n">shells</span> <span class="o">=</span> <span class="n">glass</span><span class="o">.</span><span class="n">linear_windows</span><span class="p">(</span><span class="n">zb</span><span class="p">)</span>
-    
-    <span class="c1"># compute the angular matter power spectra of the shells with CAMB</span>
-    <span class="k">return</span> <span class="n">glass</span><span class="o">.</span><span class="n">ext</span><span class="o">.</span><span class="n">camb</span><span class="o">.</span><span class="n">matter_cls</span><span class="p">(</span><span class="n">pars</span><span class="p">,</span> <span class="n">lmax</span><span class="p">,</span> <span class="n">shells</span><span class="p">),</span> <span class="n">shells</span></div>
 
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">ndim</span><span class="p">,</span> <span class="n">ndim</span><span class="p">))</span>
+    <span class="n">diag_cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">ndim</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">fill_diagonal</span><span class="p">(</span><span class="n">cov</span><span class="p">,</span> <span class="n">diag_cov</span><span class="p">)</span>
+    <span class="n">off_diag_size</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="n">i</span> <span class="o">*</span> <span class="n">off_diag_size</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">cov</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="p">)</span>
+        <span class="n">cov</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">cov</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">cov</span></div>
+
+
+<div class="viewcode-block" id="add_noise">
+<a class="viewcode-back" href="../../glass_cannon.noisy.html#glass_cannon.noisy.add_noise">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_noise</span><span class="p">(</span><span class="n">sim_data</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add Gaussian noise to simulated data</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sim_data (numpy array): simulated data you want to add noise to (3x3x129)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">init_cov</span><span class="p">(</span><span class="n">sim_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+    <span class="n">noisy_sim_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">sim_data</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sim_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">sim_data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">noisy_sim_data</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span><span class="n">jj</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">sim_data</span><span class="p">[</span><span class="n">ii</span><span class="p">,</span> <span class="n">jj</span><span class="p">],</span> <span class="n">cov</span><span class="p">)</span>
+            
+    <span class="k">return</span> <span class="n">noisy_sim_data</span></div>
+
+
+
+    
 </pre></div>
 
                 </article>
