@@ -149,12 +149,17 @@ def test_simulator():
         
         expected_galaxy_overdensities.append(delta_HI)
 
-    sim_galaxy_overdensities, sim_hi_fields = simulator(h=0.7, OmegaC=0.25, OmegaB=0.05)
+    sim_galaxy_overdensities, sim_hi_fields, all_cls = simulator(h=0.7, OmegaC=0.25, OmegaB=0.05)
+
+
+    
 
     for expected, sim in zip(expected_galaxy_overdensities, sim_galaxy_overdensities):
         assert np.allclose(expected, sim, rtol=1e-6, atol=1e-8)
 
     for expected, sim in zip(expected_hi_temperature_fields, sim_hi_fields):
         assert np.allclose(expected, sim, rtol=1e-6, atol=1e-8)
+
+    
 
 

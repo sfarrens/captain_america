@@ -35,7 +35,7 @@ def angular_power_spectrum(pars,lmax,zb):
     """
     
     # linear radial window functions
-    shells = glass.linear_windows(zb)
+    shells = glass.tophat_windows(zb, dz=0.001)
     
     # compute the angular matter power spectra of the shells with CAMB
     return glass.ext.camb.matter_cls(pars, lmax, shells), shells
