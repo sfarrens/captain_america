@@ -10,6 +10,8 @@
 
 Fighting against code mal-practise! 💪
 
+![Alt text](images/image.png)
+
 ## Project: Large-scale structure with radio and cluster abundance
 
 ### Motivation: 
