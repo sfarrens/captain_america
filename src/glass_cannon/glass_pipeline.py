@@ -10,7 +10,7 @@ import glass_cannon.matter as ma
 from glass_cannon.galaxies import add_galaxies
 
 
-def make_3D_galaxy_cube(zb, matter, ngal, rng, shells):
+"""def make_3D_galaxy_cube(zb, matter, ngal, rng, shells):
     # make a cube for galaxy number in redshift
     zcub = np.linspace(-zb[-1], zb[-1], 21)
     cube = np.zeros((zcub.size - 1,) * 3)
@@ -37,7 +37,12 @@ def make_3D_galaxy_cube(zb, matter, ngal, rng, shells):
             )
             cube[*indices] += count
             
-    return cube, zcub
+    return cube, zcub"""
+
+def galaxy_bias(z):
+     """
+     """
+     return 0.7 * (1 + z)
 
 def simulator(h, OmegaB, OmegaC, length = 128, seed = np.random.default_rng(seed=42), PLOT=False):
         """
@@ -69,16 +74,25 @@ def simulator(h, OmegaB, OmegaC, length = 128, seed = np.random.default_rng(seed
         # generator for lognormal matter fields
         matter = ma.run_generate(fields, gls, length, seed)
 
+        galaxy_overdensities = []
+        for shell, delta_m in zip(shells, matter):
+            z = shell.zeff
+            #need mean not boundary
+            
+            # Apply bias to overdensity
+            delta_g = galaxy_bias(z) * delta_m
+            
+            galaxy_overdensities.append(delta_g)
         # constant galaxy density distribution
-        z = np.linspace(0.0, 1.0, 100)
-        dndz = np.full_like(z, 0.01)
+        #z = np.linspace(0.0, 1.0, 100)
+        #dndz = np.full_like(z, 0.01)
         
-        ngal = add_galaxies(z,dndz, shells)
+        #ngal = add_galaxies(z,dndz, shells)
 
-        cube, zcub = make_3D_galaxy_cube(zb, matter, ngal, seed, shells)
+        #cube, zcub = make_3D_galaxy_cube(zb, matter, ngal, seed, shells)
         
         if PLOT==True:
-            """ PLOT THE FIGURE  """ 
+            """ PLOT THE FIGURE  
             # positions of grid cells of the cube
             z = (zcub[:-1] + zcub[1:]) / 2
             z1, z2, z3 = np.meshgrid(z, z, z)
@@ -105,7 +119,9 @@ def simulator(h, OmegaB, OmegaC, length = 128, seed = np.random.default_rng(seed
             fig.tight_layout()
             plt.show()
         
-        return cube
+        return cube""" 
+            
+        return galaxy_overdensities
 
 
 
