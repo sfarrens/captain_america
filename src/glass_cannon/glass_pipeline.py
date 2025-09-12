@@ -156,6 +156,8 @@ def simulator(h, OmegaB, OmegaC, length = 128, seed = np.random.default_rng(seed
             fig.tight_layout()
             plt.show()
         
+        return cube""" 
+        
         return galaxy_overdensities
 
 
