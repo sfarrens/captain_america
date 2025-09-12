@@ -70,6 +70,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+docs/source/glass_cannon*
+docs/source/modules.rst
 
 # PyBuilder
 .pybuilder/
@@ -214,3 +216,4 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
