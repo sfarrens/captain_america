@@ -51,27 +51,42 @@ def convert_DM_to_galaxy_overdensity(shells, matter):
 
     return galaxy_overdensities
 
-def simulator(h, OmegaB, OmegaC, length = 128, PLOT=True, n_shells=3):
-        """
-        --------------------------
-        Define cosmological parameters:
+def simulator(h, OmegaB, OmegaC, length = 128, PLOT=False):
+        """Run the GLASS-based simulation pipeline.
 
-        h (float): hubble parameter 
-        Omegac (float): critical density parameter
-        Omegab (float): baryon density parameter
-        length (int): size of box
-        seed (int): random seed to use for simulation
-        PLOT (boolean): set to True if you want to plot the 3D galaxy distribution
-        ----------------------------
+        This constructs a cosmology, builds redshift shells, computes angular
+        power spectra, generates lognormal matter fields, and returns the
+        corresponding biased galaxy overdensity fields per shell.
+
+        Parameters
+        ----------
+        h : float
+            Hubble parameter in units of 100 km s^-1 Mpc^-1.
+        OmegaB : float
+            Baryon density parameter.
+        OmegaC : float
+            Cold dark matter density parameter.
+        length : int, optional
+            Resolution parameter (e.g., HEALPix nside or similar) used by
+            GLASS when discretising spectra and generating fields. Default is
+            128.
+        seed : numpy.random.Generator, optional
+            Random number generator used for reproducible sampling. Default is
+            ``np.random.default_rng(seed=42)``.
+        PLOT : bool, optional
+            If True, execute the plotting code path (currently commented-out)
+            to visualise a pseudo-3D galaxy distribution. Default is False.
+
+        Returns
+        -------
+        list of ndarray
+            A list of galaxy overdensity fields, one per redshift shell.
         """
-        # Set up cosmology
         rng = np.random.default_rng(seed=42)
         cosmo, pars = make_cosmology_class(h=h, Oc=OmegaC, Ob=OmegaB)
         lmax = 128
         
         # Create n_shells redshift bins
-        """zb_full = glass.distance_grid(cosmo, 0.0, 1.0, dx=200.0)
-        zb = np.linspace(zb_full[0], zb_full[-1], n_shells + 1)  # edges"""
         zb = glass.redshift_grid(zmin=0., zmax=1.2, dz=0.4)
         cls, shells = angular_power_spectrum(pars, length, zb)
         print(len(shells))
