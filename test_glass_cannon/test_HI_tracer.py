@@ -2,7 +2,7 @@ import numpy as np
 import glass
 import camb
 
-from glass_cannon.HI_tracer import b_HI, T_HI_bar, convert_DM_to_HI
+from ASTRODAT.captain_america.src.glass_cannon.HI_tracer import b_HI, T_HI_bar, convert_DM_to_HI
 
 def test_b_HI():
 
