@@ -1,3 +1,11 @@
+"""High-level pipeline to simulate galaxy overdensity shells with GLASS.
+
+This module wires together GLASS and CAMB utilities defined elsewhere in the
+package to produce lognormal matter fields and biased galaxy overdensity
+fields across redshift shells. Optionally, pseudo-3D visualisation code is
+provided (commented-out) to render a volumetric view.
+"""
+
 import glass
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
@@ -11,7 +19,17 @@ from glass_cannon.galaxies import add_galaxies
 from glass_cannon.HI_tracer import b_HI, T_HI_bar, convert_DM_to_HI
 
 def galaxy_bias(z):
-     """
+     """Linear galaxy bias model.
+
+     Parameters
+     ----------
+     z : float or ndarray
+         Redshift value(s).
+
+     Returns
+     -------
+     float or ndarray
+         Galaxy bias at ``z`` defined as ``0.7 * (1 + z)``.
      """
      return 0.7 * (1 + z)
 
@@ -33,17 +51,35 @@ def convert_DM_to_galaxy_overdensity(shells, matter):
     return galaxy_overdensities
 
 def simulator(h, OmegaB, OmegaC, length = 128, seed = np.random.default_rng(seed=42), PLOT=False):
-        """
-        --------------------------
-        Define cosmological parameters:
+        """Run the GLASS-based simulation pipeline.
 
-        h (float): hubble parameter 
-        Omegac (float): critical density parameter
-        Omegab (float): baryon density parameter
-        length (int): size of box
-        seed (int): random seed to use for simulation
-        PLOT (boolean): set to True if you want to plot the 3D galaxy distribution
-        ----------------------------
+        This constructs a cosmology, builds redshift shells, computes angular
+        power spectra, generates lognormal matter fields, and returns the
+        corresponding biased galaxy overdensity fields per shell.
+
+        Parameters
+        ----------
+        h : float
+            Hubble parameter in units of 100 km s^-1 Mpc^-1.
+        OmegaB : float
+            Baryon density parameter.
+        OmegaC : float
+            Cold dark matter density parameter.
+        length : int, optional
+            Resolution parameter (e.g., HEALPix nside or similar) used by
+            GLASS when discretising spectra and generating fields. Default is
+            128.
+        seed : numpy.random.Generator, optional
+            Random number generator used for reproducible sampling. Default is
+            ``np.random.default_rng(seed=42)``.
+        PLOT : bool, optional
+            If True, execute the plotting code path (currently commented-out)
+            to visualise a pseudo-3D galaxy distribution. Default is False.
+
+        Returns
+        -------
+        list of ndarray
+            A list of galaxy overdensity fields, one per redshift shell.
         """
         cosmo, pars = make_cosmology_class(h=h, Oc=OmegaC, Ob=OmegaB)
         
@@ -68,6 +104,7 @@ def simulator(h, OmegaB, OmegaC, length = 128, seed = np.random.default_rng(seed
         #if PLOT==True:
 
         return galaxy_overdensities, hi_temperature_fields
+
 
 
 
