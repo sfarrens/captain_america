@@ -10,7 +10,9 @@ from cosmology.compat.camb import Cosmology
 import glass
 import glass.ext.camb
 
-from glass_cannon.glass_pipeline import simulator, galaxy_bias
+from glass_cannon.glass_pipeline import simulator, galaxy_bias, convert_DM_to_galaxy_overdensity
+from glass_cannon.HI_tracer import b_HI, T_HI_bar, convert_DM_to_HI
+
 
 def test_galaxy_bias():
 
@@ -20,6 +22,58 @@ def test_galaxy_bias():
     b = galaxy_bias(z)
 
     assert all(np.allclose(a, b, rtol=1e-6, atol=1e-8) for a, b in zip(expected_b, b))
+
+def test_convert_DM_to_galaxy_overdensity():
+    """
+    """
+        # cosmology for the simulation
+    h = 0.7
+    Oc = 0.25
+    Ob = 0.05
+
+    rng = np.random.default_rng(seed=42)
+    # basic parameters of the simulation
+    nside = lmax = 128
+
+    # set up CAMB parameters for matter angular power spectrum
+    pars = camb.set_params(
+        H0=100 * h,
+        omch2=Oc * h**2,
+        ombh2=Ob * h**2,
+        NonLinear=camb.model.NonLinear_both,
+    )
+    results = camb.get_background(pars)
+
+    # get the cosmology from CAMB
+    cosmo = Cosmology(results)
+    # shells of 200 Mpc in comoving distance spacing
+    zb = glass.distance_grid(cosmo, 0.0, 1.0, dx=200.0)
+
+    # linear radial window functions
+    shells = glass.linear_windows(zb)
+
+    cls = glass.ext.camb.matter_cls(pars, lmax, shells)
+    cls = glass.discretized_cls(cls, nside=nside, lmax=lmax, ncorr=3)
+    fields = glass.lognormal_fields(shells)
+    # compute Gaussian spectra for lognormal fields from discretised spectra
+    gls = glass.solve_gaussian_spectra(fields, cls)
+
+    # generator for lognormal matter fields
+    matter = glass.generate(fields, gls, nside, ncorr=3, rng=rng)
+
+    expected_galaxy_overdensities = []
+    for shell, delta_m in zip(shells, matter):
+        z = shell.zeff
+        #need mean not boundary
+        
+        # Apply bias to overdensity
+        delta_HI = galaxy_bias(z) * delta_m
+        
+        expected_galaxy_overdensities.append(delta_HI)
+
+    galaxy_overdensities = convert_DM_to_galaxy_overdensity(shells, matter)
+
+    assert all(np.allclose(a, b, rtol=1e-6, atol=1e-8) for a, b in zip(expected_galaxy_overdensities, galaxy_overdensities))
 
 def test_simulator():
     # creating a numpy random number generator for sampling
@@ -68,51 +122,39 @@ def test_simulator():
 
     # generator for lognormal matter fields
     matter = glass.generate(fields, gls, nside, ncorr=3, rng=rng)
-    
-    #galaxy_bias = 0.7(1 + z)
-    galaxy_overdensities = []
+
+    expected_hi_temperature_fields = []
     for shell, delta_m in zip(shells, matter):
         z = shell.zeff
         #need mean not boundary
         
         # Apply bias to overdensity
-        delta_g = galaxy_bias(z) * delta_m
+        delta_HI = b_HI(z) * delta_m
         
-        galaxy_overdensities.append(delta_g)
-    
-    # constant galaxy density distribution
-    #z = np.linspace(0.0, 1.0, 100)
-    #dndz = np.full_like(z, 0.01)
+        # Map overdensity to brightness temperature
+        #  - this is the observed temperature, not just fluctuations around the mean
+        #  - so the 1 + fluctuation factor is included rather than multiplying just be the fluctuation 
+        #       as is the case in equation 3 in Cunnington et al. 2019
+        T_HI = T_HI_bar(z) * (1 + delta_HI)
+        
+        expected_hi_temperature_fields.append(T_HI)
 
-    # distribute the dN/dz over the linear window functions
-    #ngal = glass.partition(z, dndz, shells)
-    
-    # make a cube for galaxy number in redshift
-    #zcub = np.linspace(-zb[-1], zb[-1], 21)
-    #cube = np.zeros((zcub.size - 1,) * 3)
+    expected_galaxy_overdensities = []
+    for shell, delta_m in zip(shells, matter):
+        z = shell.zeff
+        #need mean not boundary
+        
+        # Apply bias to overdensity
+        delta_HI = galaxy_bias(z) * delta_m
+        
+        expected_galaxy_overdensities.append(delta_HI)
 
-    # simulate and add galaxies in each matter shell to cube
-    """for i, delta_i in enumerate(matter):
-        # simulate positions from matter density
-        for gal_lon, gal_lat, gal_count in glass.positions_from_delta(
-            ngal[i],
-            delta_i,
-            rng=rng,
-        ):
-            # sample redshifts uniformly in shell
-            gal_z = glass.redshifts(gal_count, shells[i], rng=rng)
+    sim_galaxy_overdensities, sim_hi_fields = simulator(h=0.7, OmegaC=0.25, OmegaB=0.05)
 
-            # add counts to cube
-            z1 = gal_z * np.cos(np.deg2rad(gal_lon)) * np.cos(np.deg2rad(gal_lat))
-            z2 = gal_z * np.sin(np.deg2rad(gal_lon)) * np.cos(np.deg2rad(gal_lat))
-            z3 = gal_z * np.sin(np.deg2rad(gal_lat))
-            indices, count = np.unique(
-                np.searchsorted(zcub[1:], [z1, z2, z3]),
-                axis=1,
-                return_counts=True,
-            )
-            cube[*indices] += count"""
-            
-    assert np.allclose(galaxy_overdensities, simulator(h=0.7, OmegaC = 0.25, OmegaB = 0.05), rtol=1e-6, atol=1e-8)
+    for expected, sim in zip(expected_galaxy_overdensities, sim_galaxy_overdensities):
+        assert np.allclose(expected, sim, rtol=1e-6, atol=1e-8)
+
+    for expected, sim in zip(expected_hi_temperature_fields, sim_hi_fields):
+        assert np.allclose(expected, sim, rtol=1e-6, atol=1e-8)
 
 

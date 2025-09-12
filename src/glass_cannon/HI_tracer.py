@@ -1,25 +1,80 @@
+"""HI 21 cm tracer utility functions.
+
+This module provides convenience functions to model neutral hydrogen (HI)
+bias and mean brightness temperature as a function of redshift, and a
+helper to convert simulated matter overdensity fields into HI brightness
+temperature fields.
+
+References
+----------
+Cunnington, S. et al. (2019), doi:10.1093/mnras/stz1916
+Sarkar, T. G. et al. (2021), `2107.14057`.
+"""
+
 import numpy as np
 import glass
 
 
 def b_HI(z):
-    """
-    https://arxiv.org/pdf/2107.14057
+    """HI bias as a function of redshift.
 
+    The functional form follows Sarkar et al. (2021) `2107.14057`.
+
+    Parameters
+    ----------
+    z : float or ndarray
+        Redshift value(s).
+
+    Returns
+    -------
+    float or ndarray
+        HI bias evaluated at ``z``.
     """
     return 0.667 + 0.178*z + 0.050*z**2 
 
+
 def T_HI_bar(z):
-    """ 
-    https://arxiv.org/pdf/2107.14057
+    """Mean 21 cm brightness temperature as a function of redshift.
+
+    The polynomial approximation follows Sarkar et al. (2021) `2107.14057`.
+
+    Parameters
+    ----------
+    z : float or ndarray
+        Redshift value(s).
+
+    Returns
+    -------
+    float or ndarray
+        Mean HI brightness temperature at ``z`` (arbitrary units consistent
+        with the simulation setup).
     """
     return 0.0559 + 0.2324*z - 0.0241*z**2
 
+
 def convert_DM_to_HI(shells, matter):
+    """Map matter overdensity shells to HI brightness temperature fields.
 
-    """
+    For each redshift shell, the matter overdensity field ``delta_m`` is
+    biased using the HI bias, and mapped to an observed brightness
+    temperature field ``T_HI = T_HI_bar(z) * (1 + delta_HI)`` following the
+    convention in Cunnington et al. (2019).
 
-    HI temperature fluctuation field - doi:10.1093/mnras/stz1916 - Cunnington et al. 2019
+    Parameters
+    ----------
+    shells : Sequence
+        Sequence of GLASS radial window shell objects. Each must provide a
+        ``zeff`` attribute giving the effective redshift of the shell.
+    matter : Sequence of ndarray
+        Sequence of matter overdensity fields corresponding one-to-one to
+        ``shells``. Each element is an array on the HEALPix grid or similar
+        discretisation used by GLASS.
+
+    Returns
+    -------
+    list of ndarray
+        List of HI brightness temperature fields, one per input shell, with
+        the same shape as the input matter fields.
     """
     hi_temperature_fields = []
     for shell, delta_m in zip(shells, matter):
