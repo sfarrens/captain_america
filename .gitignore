@@ -70,7 +70,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-docs/source/glass_cannon*
+docs/source/glass_cannon.rst
+docs/source/glass_cannon.*.rst
 docs/source/modules.rst
 
 # PyBuilder

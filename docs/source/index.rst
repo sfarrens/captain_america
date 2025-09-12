@@ -6,6 +6,16 @@
 Glass Cannon documentation
 ==========================
 
+.. image:: glass_cannon.png
+   :alt: Glass Cannon
+   :align: center
+   :width: 60%
+
+Glass Cannon is a lightweight toolkit built on GLASS and CAMB for generating
+lognormal matter fields, computing angular power spectra, and simulating
+biased tracers (e.g., galaxies, HI) across redshift shells. It provides a
+simple pipeline and small utilities to help prototype large-scale structure
+simulations and visualisations.
 
 .. toctree::
    :maxdepth: 2
